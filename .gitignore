@@ -30,3 +30,6 @@ project/plugins/project/
 out
 
 *.sc
+
+www/js/scalajs*
+
