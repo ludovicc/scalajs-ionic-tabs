@@ -72,7 +72,8 @@ object ApplicationBuild extends Build {
     //aggregate(js, jvm). TODO
     aggregate(js).
     settings(
-      publish := {},
+      name         := Settings.name,
+      publish      := {},
       publishLocal := {}
     )
 
@@ -90,6 +91,7 @@ object ApplicationBuild extends Build {
       version                      :=  Settings.version,
       scalaVersion                 :=  Settings.versions.scala,
       scalacOptions                ++= Settings.scalacOptions,
+      scalajsOutputDir             := file(".") / "www" / "js",
       sourceDirectory in Assets    := baseDirectory.value / "src" / "main" / "assets"/*,
       LessKeys.compress in Assets  := true,
       libraryDependencies          ++= Settings.sharedDependencies.value,
@@ -134,7 +136,12 @@ object ApplicationBuild extends Build {
       jsDependencies      +=  RuntimeDOM % "test",
   
       skip in packageJSDependencies := false,
-  
+
+      persistLauncher in Compile := true,
+     	persistLauncher in Test := false,
+      mainClass := Some("ionictabs.client.StarterApp"),
+      // TODO scalajsOutputDir in packageScalaJSLauncher := scalajsOutputDir.value,
+
       // copy resources from the "shared" project
       // unmanagedResourceDirectories in Compile += file(".") / sharedSrcDir / "src" / "main" / "resources",
       // unmanagedResourceDirectories in Test    += file(".") / sharedSrcDir / "src" / "test" / "resources",
@@ -145,7 +152,7 @@ object ApplicationBuild extends Build {
       // define where the JS-only application will be hosted by the Workbench plugin
       localUrl         := ("localhost", 13131),
       refreshBrowsers <<= refreshBrowsers.triggeredBy(fastOptJS in Compile),
-      bootSnippet      := "TabsMain().main();"
+      bootSnippet      := "StarterApp().main();"
     )
 
   // make all JS builds use the output dir defined later
@@ -164,6 +171,12 @@ object ApplicationBuild extends Build {
       IO.copyFile(base.data, (classDirectory in Compile).value / "web" / "js" / (base.data.getName + ".map"))
       base
     },
+
+    packageScalaJSLauncher in Compile := {
+      val base = (packageScalaJSLauncher in Compile).value
+      IO.copyFile(base.data, scalajsOutputDir.value / base.data.getName)
+      base
+    },
   
     packageJSDependencies in Compile := {
       // make a copy of the produced jsdeps file under the js project as well,
@@ -178,8 +191,7 @@ object ApplicationBuild extends Build {
   lazy val jvm: Project = sharedProject.jvm.settings(js2jvmSettings: _*).settings(
     // scala.js output is directed under "web/js" dir in the jvm project
     // scalajsOutputDir := (classDirectory in Compile).value / "web" / "js",
-    scalajsOutputDir := file(".") / "www" / "js",
-    
+
     // compile depends on running fastOptJS on the JS project
     compile in Compile <<= (compile in Compile) dependsOn (fastOptJS in(js, Compile))
   ).enablePlugins(SbtWeb)

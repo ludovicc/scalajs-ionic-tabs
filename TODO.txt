@@ -1,0 +1,3 @@
+
+- Filter out jquery javascript library
+- Configure where the launcher script is created
