@@ -43,7 +43,7 @@ angular.module('starter').config(['$stateProvider', '$urlRouterProvider', functi
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+        controller: 'DashCtrl as dash'
       }
     }
   })
@@ -53,7 +53,7 @@ angular.module('starter').config(['$stateProvider', '$urlRouterProvider', functi
       views: {
         'tab-chats': {
           templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+          controller: 'ChatsCtrl as chats'
         }
       }
     })
@@ -62,7 +62,7 @@ angular.module('starter').config(['$stateProvider', '$urlRouterProvider', functi
       views: {
         'tab-chats': {
           templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+          controller: 'ChatDetailCtrl as detail'
         }
       }
     })
@@ -72,7 +72,7 @@ angular.module('starter').config(['$stateProvider', '$urlRouterProvider', functi
       views: {
         'tab-friends': {
           templateUrl: 'templates/tab-friends.html',
-          controller: 'FriendsCtrl'
+          controller: 'FriendsCtrl as friends'
         }
       }
     })
@@ -81,7 +81,7 @@ angular.module('starter').config(['$stateProvider', '$urlRouterProvider', functi
       views: {
         'tab-friends': {
           templateUrl: 'templates/friend-detail.html',
-          controller: 'FriendDetailCtrl'
+          controller: 'FriendDetailCtrl as detail'
         }
       }
     })
@@ -91,7 +91,7 @@ angular.module('starter').config(['$stateProvider', '$urlRouterProvider', functi
     views: {
       'tab-account': {
         templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+        controller: 'AccountCtrl as account'
       }
     }
   });

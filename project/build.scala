@@ -64,6 +64,17 @@ object Settings {
   val jsDependencies = Def.setting(Seq(
   	"org.webjars"                         % "ionic"       % "1.0.0-beta.14" / "ionic.bundle.min.js"
   ))
+
+  lazy val angulateDebugFlags = Seq(
+    // include some code for runtime debugging
+    "runtimeLogging",
+    "ModuleMacros.debug",
+    "ControllerMacros.debug",
+    "DirectiveMacros.debug",
+    "ServiceMacros.debug",
+    "HttpPromiseMacros.debug"
+  ).map( f => s"-Xmacro-settings:biz.enef.angulate.$f")
+
 }
 
 object ApplicationBuild extends Build {
@@ -91,6 +102,7 @@ object ApplicationBuild extends Build {
       version                      :=  Settings.version,
       scalaVersion                 :=  Settings.versions.scala,
       scalacOptions                ++= Settings.scalacOptions,
+      scalacOptions                ++= Settings.angulateDebugFlags,
       scalajsOutputDir             := file(".") / "www" / "js",
       sourceDirectory in Assets    := baseDirectory.value / "src" / "main" / "assets"/*,
       LessKeys.compress in Assets  := true,
