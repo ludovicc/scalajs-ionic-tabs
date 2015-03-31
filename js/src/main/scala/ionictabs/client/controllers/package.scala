@@ -8,11 +8,11 @@ package object controllers {
 
   def setup(): Unit = {
     val module = angular.createModule(namespace, Nil)
-    module.controllerOf[DashController]         ("DashCtrl")
-    module.controllerOf[ChatsController]        ("ChatsCtrl")
-    module.controllerOf[ChatDetailController]   ("ChatDetailCtrl")
-    module.controllerOf[FriendsController]      ("FriendsCtrl")
-    module.controllerOf[FriendDetailController] ("FriendDetailCtrl")
-    module.controllerOf[AccountController]      ("AccountCtrl")
+    module.controllerOf[DashController]         ("DashController")
+    module.controllerOf[ChatsController]        ("ChatsController")
+    module.controllerOf[ChatDetailController]   ("ChatDetailController")
+    module.controllerOf[FriendsController]      ("FriendsController")
+    module.controllerOf[FriendDetailController] ("FriendDetailController")
+    module.controllerOf[AccountController]      ("AccountController")
   }
 }

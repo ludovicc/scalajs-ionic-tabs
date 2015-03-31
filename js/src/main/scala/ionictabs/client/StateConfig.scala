@@ -1,6 +1,6 @@
 package ionictabs.client
 
-import angulate.uirouter.{View, State, UrlRouterProvider, StateProvider}
+import angulate.uirouter._
 import biz.enef.angulate.AnnotatedFunction
 import biz.enef.angulate.AnnotatedFunction._
 
@@ -17,79 +17,34 @@ object StateConfig {
     $stateProvider
 
       // setup an abstract state for the tabs directive
-      .state("tab", State
-        (
-          url = "/tab",
-          isAbstract = true,
-          templateUrl = "templates/tabs.html"
-        ))
+      .state("tab", State2.abstractUrl("/tab").templateUrl("templates/tabs.html"))
 
-    // Each tab has its own nav history stack:
+      // Each tab has its own nav history stack:
 
-      .state("tab.dash", State
-        (
-          url = "/dash",
-          views = Map(
-            "tab-dash" -> View (
-              templateUrl = "templates/tab-dash.html",
-              controller = "DashCtrl"
-            )
-          )
-        ))
+      .state("tab.dash", State2.url("/dash").views(
+         Views.view("tab-dash", "templates/tab-dash.html", "DashController as dash")
+       ))
 
-      .state("tab.chats", State
-        (
-          url = "/chats",
-          views = Map(
-            "tab-chats" -> View (
-              templateUrl = "templates/tab-chats.html",
-              controller = "ChatsCtrl "
-            )
-          )
-      )) /*
-    .state("tab.chat - detail ",
-    (
-      url = "/ chats / = chatId ",
-      views = (
-        "tab - chats " = (
-        templateUrl = "templates / chat - detail.html ",
-        controller = "ChatDetailCtrl "
-      )
-      )
-    ))
+      .state("tab.chats", State2.url("/chats").views(
+        Views.view("tab-chats","templates/tab-chats.html", "ChatsController as chats")
+      ))
 
-    .state("tab.friends ",
-    (
-      url = "/ friends ",
-      views = (
-        "tab - friends " = (
-        templateUrl = "templates / tab - friends.html ",
-        controller = "FriendsCtrl "
-      )
-      )
-    ))
-    .state("tab.friend - detail ",
-    (
-      url = "/ friend / = friendId ",
-      views = (
-        "tab - friends " = (
-        templateUrl = "templates / friend - detail.html ",
-        controller = "FriendDetailCtrl "
-      )
-      )
-    ))
+      .state("tab.chat-detail", State2.url("/chats/:chatId").views(
+        Views.view("tab-chats", "templates/chat-detail.html", "ChatDetailController as detail")
+      ))
 
-    .state("tab.account ",
-    (
-      url = "/ account ",
-      views = (
-        "tab - account " = (
-        templateUrl = "templates / tab - account.html ",
-        controller = "AccountCtrl "
-      )
-      )
-    ));
-*/
+      .state("tab.friends", State2.url("/friends").views(
+        Views.view("tab-friends", "templates/tab-friends.html", "FriendsController as friends")
+      ))
+
+      .state("tab.friend-detail", State2.url("/friend/:friendId").views(
+        Views.view("tab-friends", "templates/friend-detail.html", "FriendDetailController as detail")
+      ))
+
+      .state("tab.account", State2.url("/account").views(
+        Views.view("tab-account", "templates/tab-account.html", "AccountController as account")
+       ))
+
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise("/tab/dash")
 

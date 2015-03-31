@@ -1,48 +1,43 @@
 package ionictabs.client.services
 
 import biz.enef.angulate.Service
-import ionictabs.client.domain.Chat
+import ionictabs.client.domain.Friend
 
-class ChatsService extends Service {
+class FriendsService extends Service {
 
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  private var chats = Seq[Chat](
-    Chat(
+  private val friends = Seq[Friend](
+    Friend(
       id = 0,
-      name= "Ben Sparrow",
-      lastText = "You on your way?",
+      name = "Ben Sparrow",
+      notes = "Enjoys drawing things",
       face = "https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png"
-    ), Chat(
+    ), Friend(
       id = 1,
       name = "Max Lynx",
-      lastText = "Hey, it's me",
+      notes = "Odd obsession with everything",
       face = "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
-    ), Chat(
+    ), Friend(
       id = 2,
-      name = "Andrew Jostlin",
-      lastText = "Did you get the ice cream?",
+      name = "Andrew Jostlen",
+      notes = "Wears a sweet leather Jacket. I\"m a bit jealous",
       face = "https://pbs.twimg.com/profile_images/491274378181488640/Tti0fFVJ.jpeg"
-    ), Chat(
+    ), Friend(
       id = 3,
       name = "Adam Bradleyson",
-      lastText = "I should buy a boat",
+      notes = "I think he needs to buy a boat",
       face = "https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg"
-    ), Chat(
+    ), Friend(
       id = 4,
       name = "Perry Governor",
-      lastText = "Look at my mukluks!",
+      notes = "Just the nicest guy",
       face = "https://pbs.twimg.com/profile_images/491995398135767040/ie2Z_V6e.jpeg"
     ))
+  
+  def all: Seq[Friend] = friends
 
-  def all: Seq[Chat] = chats
-
-  def remove(chat: Chat): Seq[Chat] = {
-    chats = chats.filter(_ == chat)
-    chats
-  }
-
-  def get(chatId: Long): Option[Chat] = chats.find(_.id == chatId)
+  def get(friendId: Long): Option[Friend] = friends.find(_.id == friendId)
 
 }

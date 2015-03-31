@@ -10,11 +10,13 @@ object StarterApp extends JSApp {
 
     val app = angular.createModule("starter", Seq("ionic" /*, "ngCordova"*/, controllers.namespace, services.namespace ))
 
-    app.run(PlatformInitializer.initialize)
-    //app.config(StateConfig.setupStates)
+    app.run(PlatformInitializer.initializeIonic)
+       .run(PlatformInitializer.initializeUIRouter)
 
     services.setup()
     controllers.setup()
+
+    app.config(StateConfig.setupStates)
   }
 
 }

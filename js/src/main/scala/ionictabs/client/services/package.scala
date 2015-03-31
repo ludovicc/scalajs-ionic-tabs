@@ -9,6 +9,7 @@ package object services {
   def setup(): Unit = {
     val module = angular.createModule(namespace, Nil)
     module.serviceOf[ChatsService]
+    module.serviceOf[FriendsService]
   }
 
 }

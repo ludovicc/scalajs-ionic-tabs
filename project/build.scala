@@ -34,7 +34,7 @@ object Settings {
 
   /** Declare global dependency versions here to avoid mismatches in multi part dependencies */
   object versions {
-    val scala        = "2.11.5"
+    val scala        = "2.11.6"
     val scalajsAngulate = "0.2-SNAPSHOT"
   }
 
